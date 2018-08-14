@@ -129,6 +129,27 @@ ReferenceName : manageddiskname
 
 ![Flow](./Dev-Release-Packer-step.png)
 
+Script executes the Packer template and sets the VSTS output variable “manageddiskname” to the disk created by Packer. This image will be used by Terraform to point VM ScaleSets to.
+
+Packer template uses Azure builder to create image based on Red Hat and saves it in Managed Disk in the provided resource group (name includes timestamp for ease of identification).
+
+
+To install the required components and application we are using Ansible Playbook. To invoke it, define a provisioner in the Packer template. First, we use shell provisioner to install Ansible, then “Ansible-local” to invoke the playbook on the image being created, and then shutdown the VM.
+
+Resulting image will have all the components installed using Ansible playbook. This solution does not require SSH to be enabled on the VM as it uses local provisioner.
+
+Note: For Ansible to find all the roles and subdirectories “playbook_dir” should be specified. It will direct Ansible to copy all directory and subfolders to the staging directory, where Ansible provisioner is invoked in.
+
+The Ansible Playbook used in the example is running on localhost, installs JDK, Tomcat, and the Java Spring Boot application.
+
+As a result, we can see the image build built, the Ansible Playbook run, and the managed disk name as an output of the task.
+
+The newly created image could be verified in the resource group (“managed-disks” in our example).
+
+Each image has timestamp as a suffix that helps to identify images for rollback and promotion (could use git hash or tag for traceability to source control).
+
+![Flow](./Dev-packer-image.png)
+
 b. Task Terraform Init
 
 Display Name : Terraform init
@@ -141,6 +162,21 @@ Advance : Specify Working Directory : $(System.DefaultWorkingDirectory)/BuildPac
 
 ![Flow](./Dev-Release-Packer-step.png)
 
+Terraform must initialize Azure Resource provider and the configured backend for keeping the state (Azure storage in this example) before the use. Here is the snippet doing it from our Terraform template:
+
+
+Terraform initialization can be done by simply running “terraform init” command.
+
+To avoid hard coding backend storage in the Terraform template, we are using a partial configuration and providing the required backend configuration in variables file – “backend.tfvars.” Here a is configuration that uses a storage account we created as part of the prerequisites:
+
+To initialize Terraform shell script will run init command with provided backend configuration:
+
+
+Upon a successful run it will have following output indication that Terraform has been initialized.
+
+
+
+
 c. Task Terraform Apply
 
 Display Name: Terraform Apply
@@ -152,6 +188,19 @@ Arguments: $(ARM_CLIENT_ID) $(ARM_CLIENT_SECRET) $(ARM_SUBSCRIPTION_ID) $(ARM_TE
 Specify Working Dir : $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/terraform/azure
 
 ![Flow](./Dev-Release-Terraformapply-step.png)
+
+Terraform generates an execution plan describing what it will do to reach the desired state, and then executes it to build the described infrastructure. As the configuration changes, Terraform is able to determine what changed and create incremental execution plans that can be applied.
+
+In the example below, Terraform detected that some changes are required in the infrastructure.
+
+The shell file executes the Terraform build and uses the build by Packer ManagedDisk name to locate the image used in the VM scale set.
+
+The full Terraform template can be found in GitHub.
+
+It provisions the resource group, virtual network, subnet, public IP, load balancer and NAT rules, and VM scale set.
+
+Here is the definition of VM scale set, pointing to the Packer image. Resources that are not created by Terraform are referred to as “data” definition as opposed to “resource.”
+
 
 d. Create Variable Group and Link to this Pipeline
 
@@ -186,7 +235,7 @@ Step7) Provisioned infrastructure will look like this:
 
 ![Flow](./Dev-packer-result.png)
 
-As a result of the build, we have a Spring Boot application up and running on an Azure VM scale set and it could be scaled up and down quickly, according to demand.
+As a result of the build, we have a Spring Boot application up and running on an Azure VM scale set and it could be scaled up and down quickly, according to demand.  Example URL : http://demopackeriac.westus2.cloudapp.azure.com/spring-music/
 
 Conclusion
 
