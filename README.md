@@ -8,6 +8,7 @@ This repository contains code for the "Building Immutable infastructure Demo". F
 - VSTS Release invokes Terraform to provision Infrastructure (VMSS, LB, NSG) and point VMSS to image stored by packaer in ManagedDisks
 
 ![Flow](./Terraform-Ansible-Packer.PNG)
+
 ![Flow](./CICD-Flow.PNG)
 
 ## Packer
