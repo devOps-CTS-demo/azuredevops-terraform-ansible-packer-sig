@@ -41,7 +41,7 @@ VSTS uses Azure Storage backend to store state file.  Storrge account and Contai
 
 ## Prerequisites:
 
-Configure custom VSTS agent with required tools as described in “How to create a custom VSTS agent on Azure ACI with Terraform : https://open.microsoft.com/2018/05/22/how-to-create-vsts-agent-azure-aci-terraform/“
+Configure custom VSTS agent with required tools as described in “How to create a custom VSTS agent on Azure ACI with Terraform : https://open.microsoft.com/2018/05/22/how-to-create-vsts-agent-azure-aci-terraform/
 
 Service Principal with access to the Subscription
 
