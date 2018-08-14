@@ -111,12 +111,16 @@ Step2) Add Steps to New Release Env - call it Dev
 
 Step3) Add Tasks 
 
-a. Search for Bash Script --> Name it Packer
+a. Task Packer 
+
+Search for Bash Script --> Name it Packer
 
 ![Flow](./Dev-Release-tasks1.png)
 
 Display Name: Packer
+
 Script Path: $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/packer/buildvm.sh
+
 Arguments: $(ARM_CLIENT_ID) $(ARM_CLIENT_SECRET) $(ARM_SUBSCRIPTION_ID) $(ARM_TENANT_ID) $(ARM_RESOURCE_GROUP_DISKS) $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop
 
 Advanced Specify Working Dir : $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/packer
@@ -125,7 +129,7 @@ ReferenceName : manageddiskname
 
 ![Flow](./Dev-Release-Packer-step.png)
 
-b Task Terraform Init
+b. Task Terraform Init
 
 Display Name : Terraform init
 
@@ -137,7 +141,55 @@ Advance : Specify Working Directory : $(System.DefaultWorkingDirectory)/BuildPac
 
 ![Flow](./Dev-Release-Packer-step.png)
 
+c. Task Terraform Apply
+
+Display Name: Terraform Apply
+
+Script Path : $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/terraform/apply.sh
+
+Arguments: $(ARM_CLIENT_ID) $(ARM_CLIENT_SECRET) $(ARM_SUBSCRIPTION_ID) $(ARM_TENANT_ID) $(ARM_ACCESS_KEY) $(manageddiskname)
+
+Specify Working Dir : $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/terraform/azure
+
+![Flow](./Dev-Release-Terraformapply-step.png)
+
+d. Create Variable Group and Link to this Pipeline
+
+ARM_ACCESS_KEY
+
+ARM_CLIENT_ID
+
+ARM_CLIENT_SECRET
+
+ARM_RESOURCE_GROUP_DISKS
+
+ARM_SUBSCRIPTION_ID
+
+ARM_TENANT_ID
+
+SSH_PUB_KEY
+
+![Flow](./Dev-Release-Variables.png)
 
 
+Step 4) Make sure to update following files to reflect your Storage account names, keys and Resource Group
 
+/terraform/azure/backend.tfvars
 
+/terraform/azure/variables.tf  
+
+Step 5) Ensure respective RG / Storage Accounts and Container are Created in Azure Portal
+
+Step6) Run Build and Release and Monitor resources being created
+
+Step7) Provisioned infrastructure will look like this:
+
+![Flow](./Dev-packer-result.png)
+
+As a result of the build, we have a Spring Boot application up and running on an Azure VM scale set and it could be scaled up and down quickly, according to demand.
+
+Conclusion
+
+In this example, we demonstrated a simple flow that provides application deployment and infrastructure automation, and builds the immutable image that can be promoted between environments. 
+
+The build history is stored in the Azure resource group and each image is tagged, and could be rolled back very easily by pointing the VM scale set to a previous version.
