@@ -41,15 +41,32 @@ VSTS uses Azure Storage backend to store state file.  Storrge account and Contai
 
 ## Prerequisites:
 
-Configure custom VSTS agent with required tools as described in “How to create a custom VSTS agent on Azure ACI with Terraform“
+Configure custom VSTS agent with required tools as described in “How to create a custom VSTS agent on Azure ACI with Terraform : https://open.microsoft.com/2018/05/22/how-to-create-vsts-agent-azure-aci-terraform/“
+
 Service Principal with access to the Subscription
+
 Resource Group in which managed disks will be created
+
 Storage Account/Container to save Terraform state in (update “backend.tfvars” in the Terraform templates below with the  storage account names).
-Terraform must store state about your managed infrastructure and configuration. This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
+
+Terraform must store state about your managed infrastructure and configuration. 
+
+This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
+
 Ansible task extension installed from VSTS marketplace
 
 Spring Boot Application Build
-The application used for this example is the Java Spring Boot application from part 1 of this tutorial. First, we build and package the Spring Boot application using Gradle. You can import the full build definition from this GitHub repository or create a Java Gradle project from scratch by following the steps provided in this documentation: “Build your Java app with Gradle.” Here is outline of the steps and commands customizations:
+
+The application used for this example is the Java Spring Boot application. 
+
+First, we build and package the Spring Boot application using Gradle. 
+
+You can import the full build definition from this GitHub repository or 
+
+create a Java Gradle project from scratch by following the steps provided in this documentation: “Build your Java app with Gradle.” 
+
+
+Here is outline of the steps and commands customizations:
 
 Refer to full blog post https://open.microsoft.com/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
 
