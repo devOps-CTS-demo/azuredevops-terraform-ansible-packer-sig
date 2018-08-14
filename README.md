@@ -1,7 +1,7 @@
 Continuous Integration and Deployment using VSTS , Packer, Terraform and Ansible
 
 
-============
+===========================================================================================================
 
 This repository contains code for the "Building Immutable infastructure Demo". Following is the flow:
 - VSTS Build gets and packages artifacts from github 
@@ -13,10 +13,16 @@ This repository contains code for the "Building Immutable infastructure Demo". F
 
 ![Flow](./CICD-Flow.PNG)
 
+High Level Steps
+
 Step1) DevOps commit code or configuration change
+
 Step2) VSTS Build builds and packages application
+
 Step3) VSTS Release invokes Packer to build a Linux image and store it in Managed Disks
+
 Step4) Packer invokes the Ansible Playbook provisioner to install JDK, Tomcat and SpringBoot application
+
 Step5) VSTS Release invokes Terraform to provision Infrastructure and uses Packer build image
 
 ## Packer
@@ -33,7 +39,7 @@ Terraform template is located at `terraform/azure`. It creates VM Scale Set base
 VSTS uses Azure Storage backend to store state file.  Storrge account and Container should be created before staring the build. (Defaults are in backend.tfvars)
 
 
-Prerequisites:
+## Prerequisites:
 
 Configure custom VSTS agent with required tools as described in “How to create a custom VSTS agent on Azure ACI with Terraform“
 Service Principal with access to the Subscription
@@ -47,7 +53,7 @@ The application used for this example is the Java Spring Boot application from p
 
 Refer to full blog post for step-by-step instructions https://open.microsoft.com/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
 
-Build Provisioning
+## Build Provisioning
 
 1. Create a build definition (Build & Release tab > Builds).
 2. Search and use “Gradle” definition.
@@ -91,8 +97,7 @@ Target Folder: $(build.artifactstagingdirectory)/ansible
 
 6. Save Build Tasks
 
-
-Infrastructure Provisioning
+## Infrastructure Provisioning
 
 
 
