@@ -1,4 +1,6 @@
 Continuous Integration and Deployment using VSTS , Packer, Terraform and Ansible
+
+Refer to full blog post https://open.microsoft.com/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
 ============
 
 This repository contains code for the "Building Immutable infastructure Demo". Following is the flow:
@@ -10,6 +12,12 @@ This repository contains code for the "Building Immutable infastructure Demo". F
 ![Flow](./Terraform-Ansible-Packer.png)
 
 ![Flow](./CICD-Flow.PNG)
+
+Step1) DevOps commit code or configuration change
+Step2) VSTS Build builds and packages application
+Step3) VSTS Release invokes Packer to build a Linux image and store it in Managed Disks
+Step4) Packer invokes the Ansible Playbook provisioner to install JDK, Tomcat and SpringBoot application
+Step5) VSTS Release invokes Terraform to provision Infrastructure and uses Packer build image
 
 ## Packer
 Packer template for Azure Image is located at `packer/app.json`. It stores prepared image in managed disks in Resource group provided by environment variable `ARM_RESOURCE_GROUP_DISKS`, this resource group should be created before the build (TODO: add creation to pipeline)
@@ -25,4 +33,24 @@ Terraform template is located at `terraform/azure`. It creates VM Scale Set base
 VSTS uses Azure Storage backend to store state file.  Storrge account and Container should be created before staring the build. (Defaults are in backend.tfvars)
 
 
+Prerequisites:
 
+Configure custom VSTS agent with required tools as described in “How to create a custom VSTS agent on Azure ACI with Terraform“
+Service Principal with access to the Subscription
+Resource Group in which managed disks will be created
+Storage Account/Container to save Terraform state in (update “backend.tfvars” in the Terraform templates below with the  storage account names).
+Terraform must store state about your managed infrastructure and configuration. This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
+Ansible task extension installed from VSTS marketplace
+
+Spring Boot Application Build
+The application used for this example is the Java Spring Boot application from part 1 of this tutorial. First, we build and package the Spring Boot application using Gradle. You can import the full build definition from this GitHub repository or create a Java Gradle project from scratch by following the steps provided in this documentation: “Build your Java app with Gradle.” Here is outline of the steps and commands customizations:
+
+1. Create a build definition (Build & Release tab > Builds).
+2. Search and use “Gradle” definition.
+3. In the repository tab of build definition make sure the repository selected is the one where you pushed (Git).
+4. In ”Copy Files” – customize the step to copy all required scripts directories with templates to resulting artifact.
+ansible/**
+terraform/**
+packer/**
+
+![Flow](./Build-Image1.png)
