@@ -7,7 +7,7 @@ This repository contains code for the "Building Immutable infastructure Demo". F
 - Packer uses `ansible-local` provisioner to install Apache and application code into the image
 - VSTS Release invokes Terraform to provision Infrastructure (VMSS, LB, NSG) and point VMSS to image stored by packaer in ManagedDisks
 
-![Flow](./Terraform-Ansible-Packer.PNG)
+![Flow](./Terraform-Ansible-Packer.png)
 
 ![Flow](./CICD-Flow.PNG)
 
