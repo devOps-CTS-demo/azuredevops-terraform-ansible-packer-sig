@@ -1,6 +1,6 @@
 Continuous Integration and Deployment using VSTS , Packer, Terraform and Ansible
 
-Refer to full blog post https://open.microsoft.com/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
+
 ============
 
 This repository contains code for the "Building Immutable infastructure Demo". Following is the flow:
@@ -45,12 +45,57 @@ Ansible task extension installed from VSTS marketplace
 Spring Boot Application Build
 The application used for this example is the Java Spring Boot application from part 1 of this tutorial. First, we build and package the Spring Boot application using Gradle. You can import the full build definition from this GitHub repository or create a Java Gradle project from scratch by following the steps provided in this documentation: “Build your Java app with Gradle.” Here is outline of the steps and commands customizations:
 
+Refer to full blog post for step-by-step instructions https://open.microsoft.com/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
+
+Build Provisioning
+
 1. Create a build definition (Build & Release tab > Builds).
 2. Search and use “Gradle” definition.
-3. In the repository tab of build definition make sure the repository selected is the one where you pushed (Git).
-4. In ”Copy Files” – customize the step to copy all required scripts directories with templates to resulting artifact.
+  In the repository tab of build definition make sure the repository selected is the one where you pushed (Git).
+
+![Flow](./Build-Gradle.png)
+
+
+3. In ”Copy Files” – customize the step to copy all required scripts directories with templates to resulting artifact.
+
+Display Name: Copy Files
+
+Source Folder : $(build.sourcesdirectory)
+
+Contents:
 ansible/**
 terraform/**
 packer/**
 
-![Flow](./Build-Image1.png)
+Target Folder: $(build.artifactstagingdirectory)
+
+![Flow](./Build-Copyfiles.png)
+
+4. Add an additional “Copy Files” step, which will copy the Java WAR file to the resulting build artifact.
+
+Display Name: Copy Binary Files
+
+Source Folder : $(build.sourcesdirectory)
+
+Contents:
+
+**/*.war
+
+Target Folder: $(build.artifactstagingdirectory)/ansible
+
+![Flow](./Build-CopyBinary.png)
+
+5. On the Triggers tab, enable continuous integration (CI). This tells the system to queue a build whenever new code is committed. Save and queue the build.
+
+![Flow](./Build-TriggerCI.png)
+
+6. Save Build Tasks
+
+
+Infrastructure Provisioning
+
+
+
+
+
+
