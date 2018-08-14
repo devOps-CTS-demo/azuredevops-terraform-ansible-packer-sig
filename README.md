@@ -1,7 +1,7 @@
 Continuous Integration and Deployment using VSTS , Packer, Terraform and Ansible
 
 
-===========================================================================================================
+================================================================================
 
 This repository contains code for the "Building Immutable infastructure Demo". Following is the flow:
 - VSTS Build gets and packages artifacts from github 
@@ -13,7 +13,7 @@ This repository contains code for the "Building Immutable infastructure Demo". F
 
 ![Flow](./CICD-Flow.PNG)
 
-High Level Steps
+## High Level Steps
 
 Step1) DevOps commit code or configuration change
 
@@ -51,7 +51,7 @@ Ansible task extension installed from VSTS marketplace
 Spring Boot Application Build
 The application used for this example is the Java Spring Boot application from part 1 of this tutorial. First, we build and package the Spring Boot application using Gradle. You can import the full build definition from this GitHub repository or create a Java Gradle project from scratch by following the steps provided in this documentation: “Build your Java app with Gradle.” Here is outline of the steps and commands customizations:
 
-Refer to full blog post for step-by-step instructions https://open.microsoft.com/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
+Refer to full blog post https://open.microsoft.com/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
 
 ## Build Provisioning
 
@@ -99,6 +99,43 @@ Target Folder: $(build.artifactstagingdirectory)/ansible
 
 ## Infrastructure Provisioning
 
+In this flow, Packer builds an Azure VM image and uses Ansible as the provisioner. Ansible Playbook installs the required software (Apache) and application on the server. The completed image is saved in Azure Managed disks. Terraform is used to build the infrastructure based on the Packer image.
+
+Here is the Release pipeline definition, which can be imported from GitHub.
+
+Step1) Create a New Release 
+
+Step2) Add Steps to New Release Env - call it Dev
+
+![Flow](./Dev-Release1.jpg)
+
+Step3) Add Tasks 
+
+a. Search for Bash Script --> Name it Packer
+
+![Flow](./Dev-Release-tasks1.png)
+
+Display Name: Packer
+Script Path: $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/packer/buildvm.sh
+Arguments: $(ARM_CLIENT_ID) $(ARM_CLIENT_SECRET) $(ARM_SUBSCRIPTION_ID) $(ARM_TENANT_ID) $(ARM_RESOURCE_GROUP_DISKS) $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop
+
+Advanced Specify Working Dir : $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/packer
+
+ReferenceName : manageddiskname
+
+![Flow](./Dev-Release-Packer-step.png)
+
+b Task Terraform Init
+
+Display Name : Terraform init
+
+Script Path: $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/terraform/init.sh
+
+Arguments:  $(ARM_CLIENT_ID) $(ARM_CLIENT_SECRET) $(ARM_SUBSCRIPTION_ID) $(ARM_TENANT_ID) $(ARM_ACCESS_KEY)
+
+Advance : Specify Working Directory : $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/terraform/azure
+
+![Flow](./Dev-Release-Packer-step.png)
 
 
 
