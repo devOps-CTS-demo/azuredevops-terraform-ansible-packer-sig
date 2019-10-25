@@ -1,0 +1,10 @@
+#Your build pipeline references an undefined variable named ‘Parameters.tasks’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+
+steps:
+- task: Gradle@2
+  displayName: 'gradlew build'
+  inputs:
+    gradleWrapperFile: web/gradlew
+    workingDirectory: '$(build.sourcesdirectory)/web'
+    tasks: '$(Parameters.tasks)'
+
