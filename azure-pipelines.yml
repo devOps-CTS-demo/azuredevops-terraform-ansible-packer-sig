@@ -2,7 +2,7 @@
 
 steps:
 - task: Gradle@2
-  displayName: 'gradlew build'
+  displayName: 'BuildPacker-CI'
   inputs:
     gradleWrapperFile: web/gradlew
     workingDirectory: '$(build.sourcesdirectory)/web'
