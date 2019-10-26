@@ -7,6 +7,19 @@ export ARM_SUBSCRIPTION_ID=$3
 export ARM_TENANT_ID=$4
 export ARM_RESOURCE_GROUP_DISKS=$5
 
+export sigrg="rsazsigrg"
+export sigloc="westus2"
+export siggalleryname="rsazsiggallery"
+export siggalleryimage="rsazcentosImageDefinition"
+export sigimagever="1.0.5"
+export sigtarget1="EastUS2"
+export sigtarget2="WestUS2"
+export sigreplica="2"
+export sigplublisher="rsazpublisher"
+export sigoffer="rszrhel7x"
+export sigsku="7.6"
+export ostype="Linux"
+
 
 
 rm packer-build-output.log
@@ -34,4 +47,15 @@ export managedimagelocation=$(cat packer-build-output.log | grep ManagedImageLoc
 echo "variable $managedimagelocation"
 echo "##vso[task.setvariable variable=managedimagelocation]$managedimagelocation"
 [ -z "$managedimagelocation" ] && exit 1 || exit 0
+
+#AZ SIG commands
+
+#az group create --name $sigrg --location $sigloc
+#az sig create --resource-group $sigrg --gallery-name $siggalleryname
+# Create Image definition
+#az sig image-definition create --resource-group $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --publisher $sigplublisher --offer $sigoffer --sku $sigsku --os-type $ostype
+echo "# Create Image version"
+az sig image-version create -g $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid
+echo "# Add Image to Target regions"
+az sig image-version create --resource-group $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
 
