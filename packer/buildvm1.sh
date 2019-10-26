@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "************* set environment vars"
 export ARM_CLIENT_ID=$1
