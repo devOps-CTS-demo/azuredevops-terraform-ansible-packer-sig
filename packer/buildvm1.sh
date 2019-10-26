@@ -31,7 +31,7 @@ echo $7 $8 $9 $10 $11 $12 $13 $14
 rm packer-build-output.log
 echo "************* execute packer build drop path $6"
 ## execute packer build and send out to packer-build-output file
-packer build  -var playbook_drop_path=$6 ./app1.json 2>&1 | tee packer-build-output.log
+#packer build  -var playbook_drop_path=$6 ./app1.json 2>&1 | tee packer-build-output.log
 
 ## export output variable to VSTS 
 export manageddiskname=$(cat packer-build-output.log | grep ManagedImageName: | awk '{print $2}')
@@ -67,11 +67,11 @@ echo "# Create Image version"
 
 #az sig image-version create -g $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid
 
-az sig image-version create -g $7 --gallery-name $9 --gallery-image-definition $10 --gallery-image-version $sigimagever --managed-image $managedimageid
+#az sig image-version create -g $7 --gallery-name $9 --gallery-image-definition $10 --gallery-image-version $sigimagever --managed-image $managedimageid
 
 echo "# Add Image to Target regions"
 #az sig image-version create --resource-group $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
-az sig image-version create --resource-group $7 --gallery-name $9 --gallery-image-definition $10 --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
+#az sig image-version create --resource-group $7 --gallery-name $9 --gallery-image-definition $10 --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
 
 
 [ -z "$manageddiskname" ] && exit 1 || exit 0
