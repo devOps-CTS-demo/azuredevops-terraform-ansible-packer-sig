@@ -53,7 +53,8 @@ echo "##vso[task.setvariable variable=managedimagelocation]$managedimagelocation
 [ -z "$managedimagelocation" ] && exit 1 || exit 0
 
 #AZ SIG commands
-
+az login --service-principal -u $1 -p $2 --tenant $4
+az account set --subscription $3
 #az group create --name $sigrg --location $sigloc
 #az sig create --resource-group $sigrg --gallery-name $siggalleryname
 # Create Image definition
