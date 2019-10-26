@@ -1,7 +1,8 @@
 #!/bin/bash
 
 echo "************* set environment vars"
-wget https://rsazvststapsa.blob.core.windows.net/backup/packer?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-10-26T18:00:43Z&st=2019-10-26T10:00:43Z&spr=https&sig=J3Sryldcyz0tLEhLXNNDQ862iApQr8o0SAbHO%2BFW0ww%3D
+wget https://releases.hashicorp.com/packer/1.4.4/packer_1.4.4_linux_amd64.zip
+uzip packer*
 cp -p packer /usr/local/bin/packer
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 export ARM_CLIENT_ID=$1
