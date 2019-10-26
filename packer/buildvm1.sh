@@ -21,3 +21,17 @@ echo "variable $manageddiskname"
 echo "##vso[task.setvariable variable=manageddiskname]$manageddiskname"
 
 [ -z "$manageddiskname" ] && exit 1 || exit 0
+
+export managedimageid=$(cat packer-build-output.log | grep ManagedImageId: | awk '{print $2}')
+
+echo "variable $managedimageid"
+echo "##vso[task.setvariable variable=managedimageid]$managedimageid"
+[ -z "$managedimageid" ] && exit 1 || exit 0
+
+
+export managedimagelocation=$(cat packer-build-output.log | grep ManagedImageLocation: | awk '{print $2}')
+
+echo "variable $managedimagelocation"
+echo "##vso[task.setvariable variable=managedimagelocation]$managedimagelocation"
+[ -z "$managedimagelocation" ] && exit 1 || exit 0
+
