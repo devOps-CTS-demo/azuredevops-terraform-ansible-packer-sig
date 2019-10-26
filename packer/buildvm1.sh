@@ -18,7 +18,7 @@ export sig_def=$9
 
 echo $7 $8 $9
 
-export sigimagever="1.0.7"
+export sigimagever="1.0.1"
 export sigloc="westus2"
 export sigtarget1="EastUS2"
 export sigtarget2="WestUS2"
