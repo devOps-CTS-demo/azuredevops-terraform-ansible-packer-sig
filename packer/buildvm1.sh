@@ -10,14 +10,16 @@ export ARM_CLIENT_SECRET=$2
 export ARM_SUBSCRIPTION_ID=$3
 export ARM_TENANT_ID=$4
 export ARM_RESOURCE_GROUP_DISKS=$5
-
-
-#export sigrg="rsazsigrg"
-export sigrg=$7
+export sig_rg=$7
 echo $7
-#export sigloc="westus2"
-export sigloc=$8
+export sig_loc=$8
 echo $8
+#export sigrg="rsazsigrg"
+
+#echo $7
+#export sigloc="westus2"
+#export sigloc=$8
+#echo $8
 #export siggalleryname="rsazsiggallery"
 export siggalleryname=$9
 echo $9
