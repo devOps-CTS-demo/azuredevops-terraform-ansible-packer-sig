@@ -17,6 +17,7 @@ export sigrg=$7
 echo $sigrg
 #export sigloc="westus2"
 export sigloc=$8
+echo $(sigloc)
 #export siggalleryname="rsazsiggallery"
 export siggalleryname=$9
 #export siggalleryimage="rsazcentosImageDefinition"
