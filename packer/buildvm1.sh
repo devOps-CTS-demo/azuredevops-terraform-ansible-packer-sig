@@ -14,10 +14,10 @@ export ARM_RESOURCE_GROUP_DISKS=$5
 
 #export sigrg="rsazsigrg"
 export sigrg=$7
-echo $sigrg
+echo $7
 #export sigloc="westus2"
 export sigloc=$8
-echo $(sigloc)
+echo $8
 #export siggalleryname="rsazsiggallery"
 export siggalleryname=$9
 #export siggalleryimage="rsazcentosImageDefinition"
