@@ -13,13 +13,14 @@ export ARM_RESOURCE_GROUP_DISKS=$5
 
 #export sigrg="rsazsigrg"
 export sigrg=$7
+echo $sigrg
 #export sigloc="westus2"
 export sigloc=$8
 #export siggalleryname="rsazsiggallery"
 export siggalleryname=$9
 #export siggalleryimage="rsazcentosImageDefinition"
 export siggalleryimage=$10
-export sigimagever="1.0.6"
+export sigimagever="1.0.7"
 export sigtarget1="EastUS2"
 export sigtarget2="WestUS2"
 export sigreplica="2"
@@ -35,7 +36,7 @@ export ostype=$14
 rm packer-build-output.log
 echo "************* execute packer build drop path $6"
 ## execute packer build and send out to packer-build-output file
-packer build  -var playbook_drop_path=$6 ./app1.json 2>&1 | tee packer-build-output.log
+#packer build  -var playbook_drop_path=$6 ./app1.json 2>&1 | tee packer-build-output.log
 
 ## export output variable to VSTS 
 export manageddiskname=$(cat packer-build-output.log | grep ManagedImageName: | awk '{print $2}')
