@@ -26,12 +26,12 @@ export sigtarget1="EastUS2"
 export sigtarget2="WestUS2"
 export sigreplica="2"
 
-echo $7 $8 $9 $10 $11 $12 $13 $14 $15 
+# echo $7 $8 $9 $10 $11 $12 $13 $14 $15
 
 rm packer-build-output.log
 echo "************* execute packer build drop path $6"
 ## execute packer build and send out to packer-build-output file
-#packer build  -var playbook_drop_path=$6 ./app1.json 2>&1 | tee packer-build-output.log
+packer build  -var playbook_drop_path=$6 ./app1.json 2>&1 | tee packer-build-output.log
 
 ## export output variable to VSTS 
 export manageddiskname=$(cat packer-build-output.log | grep ManagedImageName: | awk '{print $2}')
