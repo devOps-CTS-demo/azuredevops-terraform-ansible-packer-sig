@@ -11,6 +11,7 @@ export ARM_SUBSCRIPTION_ID=$3
 export ARM_TENANT_ID=$4
 export ARM_RESOURCE_GROUP_DISKS=$5
 
+
 #export sigrg="rsazsigrg"
 export sigrg=$7
 echo $sigrg
@@ -64,8 +65,8 @@ az account set --subscription $3
 # Create Image definition
 #az sig image-definition create --resource-group $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --publisher $sigplublisher --offer $sigoffer --sku $sigsku --os-type $ostype
 echo "# Create Image version"
-az sig image-version create -g $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid
+#az sig image-version create -g $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid
 echo "# Add Image to Target regions"
-az sig image-version create --resource-group $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
+#az sig image-version create --resource-group $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
 
 [ -z "$manageddiskname" ] && exit 1 || exit 0
