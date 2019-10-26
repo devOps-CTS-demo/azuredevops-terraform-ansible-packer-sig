@@ -11,18 +11,26 @@ export ARM_SUBSCRIPTION_ID=$3
 export ARM_TENANT_ID=$4
 export ARM_RESOURCE_GROUP_DISKS=$5
 
-export sigrg="rsazsigrg"
-export sigloc="westus2"
-export siggalleryname="rsazsiggallery"
-export siggalleryimage="rsazcentosImageDefinition"
-export sigimagever="1.0.5"
+#export sigrg="rsazsigrg"
+export sigrg=$7
+#export sigloc="westus2"
+export sigloc=$8
+#export siggalleryname="rsazsiggallery"
+export siggalleryname=$9
+#export siggalleryimage="rsazcentosImageDefinition"
+export siggalleryimage=$10
+export sigimagever="1.0.6"
 export sigtarget1="EastUS2"
 export sigtarget2="WestUS2"
 export sigreplica="2"
-export sigplublisher="rsazpublisher"
-export sigoffer="rszrhel7x"
-export sigsku="7.6"
-export ostype="Linux"
+#export sigplublisher="rsazpublisher"
+export sigplublisher=$11
+#export sigoffer="rszrhel7x"
+export sigoffer=$12
+#export sigsku="7.6"
+export sigsku=$13
+#export ostype="Linux"
+export ostype=$14
 
 rm packer-build-output.log
 echo "************* execute packer build drop path $6"
