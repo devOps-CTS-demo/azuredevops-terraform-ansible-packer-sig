@@ -24,7 +24,7 @@
     "managed_image_resource_group_name": "{{user `managed_resource_group`}}",
     "managed_image_name": "demoPackerImage-{{isotime \"2006-01-02_03_04_05\"}}",
 
-    "location": "Canada Central",
+    "location": "westus2",
     "vm_size": "Basic_A1"
   }],
   "provisioners": [
