@@ -20,6 +20,7 @@ export sigloc=$8
 echo $8
 #export siggalleryname="rsazsiggallery"
 export siggalleryname=$9
+echo $9
 #export siggalleryimage="rsazcentosImageDefinition"
 export siggalleryimage=$10
 export sigimagever="1.0.7"
