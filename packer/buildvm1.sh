@@ -14,19 +14,19 @@ export ARM_RESOURCE_GROUP_DISKS=$5
 export sig_rg=$7
 export sig_loc=$8
 export siggallery_name=$9
-export siggallery_image=$10
-export sig_def=$11
-export sigp_lublisher=$12
-export sig_offer=$13
-export sig_sku=$14
-export os_type=$15
+export sig_def=$10
+export sig_publisher=$11
+export sig_offer=$12
+export sig_sku=$13
+export os_type=$14
 
 export sigimagever="1.0.7"
 export sigtarget1="EastUS2"
 export sigtarget2="WestUS2"
 export sigreplica="2"
 
-# echo $7 $8 $9 $10 $11 $12 $13 $14 $15
+echo $7 $8 $9 $10 $11 $12 $13 $14
+
 
 rm packer-build-output.log
 echo "************* execute packer build drop path $6"
@@ -67,11 +67,11 @@ echo "# Create Image version"
 
 #az sig image-version create -g $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid
 
-az sig image-version create -g $7 --gallery-name $9 --gallery-image-definition $11 --gallery-image-version $sigimagever --managed-image $managedimageid
+az sig image-version create -g $7 --gallery-name $9 --gallery-image-definition $10 --gallery-image-version $sigimagever --managed-image $managedimageid
 
 echo "# Add Image to Target regions"
 #az sig image-version create --resource-group $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
+az sig image-version create --resource-group $7 --gallery-name $9 --gallery-image-definition $10 --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
 
-az sig image-version create --resource-group $7 --gallery-name $9 --gallery-image-definition $11 --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
 
 [ -z "$manageddiskname" ] && exit 1 || exit 0
