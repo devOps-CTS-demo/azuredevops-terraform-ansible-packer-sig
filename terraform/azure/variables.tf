@@ -7,7 +7,7 @@ variable "project" {
 }
 
 variable "manageddiskname-rg" {
-  default = "managed-images"
+  default = "vsts-terraform-ansible-packer-rg"
 }
 
 variable "baked_image_url" {
