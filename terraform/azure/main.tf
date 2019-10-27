@@ -75,9 +75,7 @@ resource "azurerm_lb" "vmss_lb" {
     public_ip_address_id = "${azurerm_public_ip.demo_public_ip.id}"
   }
 
-  tags {
-    environment = "Terraform Demo"
-  }
+  
 }
 
 resource "azurerm_lb_backend_address_pool" "bpepool" {
