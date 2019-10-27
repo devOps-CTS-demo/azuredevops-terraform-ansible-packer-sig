@@ -18,11 +18,11 @@ export sig_def=$9
 
 echo $7 $8 $9
 
-export sigimagever="1.0.2"
+export sigimagever="1.0.3"
 export sigloc="westus2"
 export sigtarget1="EastUS2"
 export sigtarget2="WestUS2"
-export sigreplica="2"
+export sigreplica="1"
 export ostype="Linux"
 export sigoffer="rhel7x"
 export sigsku="7.3"
@@ -70,7 +70,7 @@ az sig image-definition create --resource-group $7 --gallery-name $8 --gallery-i
 
 #az sig image-version create -g $7 --gallery-name $8 --gallery-image-definition $9 --gallery-image-version $sigimagever --managed-image $managedimageid
 
-echo "# Create Image and Add Image to Target regions"
+echo "# Create SIG Image and Add SIG Image to Target regions"
 az sig image-version create --resource-group $7 --gallery-name $8 --gallery-image-definition $9 --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
 
 [ -z "$manageddiskname" ] && exit 1 || exit 0
