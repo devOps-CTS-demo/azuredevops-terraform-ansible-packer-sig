@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "demo_resource_group" {
   location = "westus2"
 
   tags {
-    environment = "Packer Demo"
+    environment = "Packer Demo RG"
   }
 }
 
