@@ -24,9 +24,7 @@ resource "azurerm_virtual_network" "demo_virtual_network" {
   location            = "${azurerm_resource_group.demo_resource_group.location}"
   resource_group_name = "${azurerm_resource_group.demo_resource_group.name}"
 
-  tags {
-    environment = "Packer Demo"
-  }
+
 }
 
 # Create subnet
