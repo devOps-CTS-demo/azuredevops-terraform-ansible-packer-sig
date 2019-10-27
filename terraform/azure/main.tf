@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "demo_resource_group" {
   location = "westus2"
 
    tags = {
-    environment = "Packer Demo Build"
+    environment = "Azure DevOps Demo Build - RG"
   }
   
 }
@@ -25,6 +25,9 @@ resource "azurerm_virtual_network" "demo_virtual_network" {
   location            = "${azurerm_resource_group.demo_resource_group.location}"
   resource_group_name = "${azurerm_resource_group.demo_resource_group.name}"
 
+    tags = {
+    environment = "Azure DevOps Demo Build - VNET"
+  }
 
 }
 
@@ -44,6 +47,9 @@ resource "azurerm_public_ip" "demo_public_ip" {
   public_ip_address_allocation = "static"
   domain_name_label            = "rsazdemopackeriac"
 
+   tags = {
+    environment = "Azure DevOps Demo Build"
+  }
   
 }
 
@@ -64,7 +70,10 @@ resource "azurerm_network_security_group" "demo_security_group" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
+  
+  tags = {
+    environment = "Azure DevOps Demo Build"
+  }
  
 }
 
@@ -78,6 +87,9 @@ resource "azurerm_lb" "vmss_lb" {
     public_ip_address_id = "${azurerm_public_ip.demo_public_ip.id}"
   }
 
+ tags = {
+    environment = "Azure DevOps Demo Build"
+  }
   
 }
 
@@ -124,6 +136,9 @@ resource "azurerm_storage_account" "demo_storage_account" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
+  tags = {
+    environment = "Azure DevOps Demo Build"
+  }
   
 }
 
@@ -184,6 +199,9 @@ resource "azurerm_virtual_machine_scale_set" "vmss" {
     }
   }
 
+tags = {
+    environment = "Azure DevOps Demo Build"
+  }  
   
 }
 
