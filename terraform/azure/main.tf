@@ -35,11 +35,11 @@ resource "azurerm_subnet" "demo_subnet" {
 
 # Create public IPs
 resource "azurerm_public_ip" "demo_public_ip" {
-  name                         = "packerpublicip"
+  name                         = "rsazpackerpublicip"
   location                     = "${azurerm_resource_group.demo_resource_group.location}"
   resource_group_name          = "${azurerm_resource_group.demo_resource_group.name}"
   public_ip_address_allocation = "static"
-  domain_name_label            = "demopackeriac"
+  domain_name_label            = "rsazdemopackeriac"
 
   
 }
@@ -181,9 +181,7 @@ resource "azurerm_virtual_machine_scale_set" "vmss" {
     }
   }
 
-  tags {
-    environment = "Terraform Demo"
-  }
+  
 }
 
 output "vm_ip" {
