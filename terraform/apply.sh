@@ -9,7 +9,7 @@ export ARM_SUBSCRIPTION_ID=$3
 export ARM_TENANT_ID=$4
 export ARM_ACCESS_KEY=$5
 
-#terraform apply -auto-approve -var "manageddiskname=$6"
+##terraform apply -auto-approve -var "manageddiskname=$6"
 terraform apply -auto-approve -var manageddiskname=demoPackerImage-2019-10-27_06_29_31
 terraform output vm_ip > inventory
 
