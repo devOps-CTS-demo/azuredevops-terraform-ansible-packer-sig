@@ -66,15 +66,11 @@ az sig create --resource-group $7 --gallery-name $8
 
 az sig image-definition create --resource-group $7 --gallery-name $8 --gallery-image-definition $9 --publisher $sigpublisher --offer $sigoffer --sku $sigsku --os-type $ostype
 
-echo "# Create Image version"
+# echo "# Create Image version"
 
-#az sig image-version create -g $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid
+#az sig image-version create -g $7 --gallery-name $8 --gallery-image-definition $9 --gallery-image-version $sigimagever --managed-image $managedimageid
 
-az sig image-version create -g $7 --gallery-name $8 --gallery-image-definition $9 --gallery-image-version $sigimagever --managed-image $managedimageid
-
-echo "# Add Image to Target regions"
-#az sig image-version create --resource-group $sigrg --gallery-name $siggalleryname --gallery-image-definition $siggalleryimage --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
-
+echo "# Create Image and Add Image to Target regions"
 az sig image-version create --resource-group $7 --gallery-name $8 --gallery-image-definition $9 --gallery-image-version $sigimagever --managed-image $managedimageid --target-regions "$sigtarget1" "$sigtarget2"
 
 [ -z "$manageddiskname" ] && exit 1 || exit 0
