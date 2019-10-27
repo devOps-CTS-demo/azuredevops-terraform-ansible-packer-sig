@@ -47,8 +47,8 @@ resource "azurerm_public_ip" "demo_public_ip" {
   public_ip_address_allocation = "static"
   domain_name_label            = "rsazdemopackeriac"
 
-   tags = {
-    environment = "Azure DevOps Demo Build"
+tags = {
+ environment = "Azure DevOps Demo Build"
   }
   
 }
@@ -71,8 +71,8 @@ resource "azurerm_network_security_group" "demo_security_group" {
     destination_address_prefix = "*"
   }
   
-  tags = {
-    environment = "Azure DevOps Demo Build"
+ tags = {
+  environment = "Azure DevOps Demo Build"
   }
  
 }
@@ -136,9 +136,9 @@ resource "azurerm_storage_account" "demo_storage_account" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags = {
-    environment = "Azure DevOps Demo Build"
-  }
+ tags = {
+  environment = "Azure DevOps Demo Build"
+}
   
 }
 
