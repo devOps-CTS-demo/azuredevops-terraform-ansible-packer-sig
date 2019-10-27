@@ -41,9 +41,7 @@ resource "azurerm_public_ip" "demo_public_ip" {
   public_ip_address_allocation = "static"
   domain_name_label            = "demopackeriac"
 
-  tags {
-    environment = "Packer Demo"
-  }
+  
 }
 
 # Create Network Security Group and rule
@@ -64,9 +62,7 @@ resource "azurerm_network_security_group" "demo_security_group" {
     destination_address_prefix = "*"
   }
 
-  tags {
-    environment = "Packer Demo"
-  }
+ 
 }
 
 resource "azurerm_lb" "vmss_lb" {
@@ -127,9 +123,7 @@ resource "azurerm_storage_account" "demo_storage_account" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags {
-    environment = "Terraform Demo"
-  }
+  
 }
 
 # Points to Packer build image 
