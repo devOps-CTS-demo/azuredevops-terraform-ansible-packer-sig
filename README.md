@@ -13,11 +13,11 @@ This repository contains code for the "Building Immutable infastructure Demo". F
 
 End-To-End Flow 
 
-![Flow](./AzureDevOps-IAC)
+![Flow](./AzureDevOps-IAC.jpg)
 
 ![Flow](./Terraform-Ansible-Packer.png)
 
-![Flow](./CICD-Flow.PNG)
+## ![Flow](./CICD-Flow.PNG)
 
 ## High Level Steps
 
