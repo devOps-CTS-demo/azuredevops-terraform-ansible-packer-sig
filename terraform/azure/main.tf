@@ -210,5 +210,5 @@ output "vm_ip" {
 }
 
 output "vm_dns" {
-  value = "http://${azurerm_public_ip.demo_public_ip.domain_name_label}.westus2.cloudapp.azure.com"
+  value = "http://${azurerm_public_ip.demo_public_ip.domain_name_label}.westus2.cloudapp.azure.com/spring-music/"
 }
