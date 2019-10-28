@@ -1,7 +1,6 @@
 Continuous Integration and Deployment using Azure DevOps,Packer,Terraform, Ansible and Shared Image Gallery (SIG)
 
-
-================================================================================
+==============================================================================
 
 This repository contains code for the "Building Immutable infastructure Demo". Following is the flow:
 - Azure DevOps Build gets and packages artifacts from github 
@@ -47,12 +46,12 @@ Ansible playbook`packer/apache.yml` installs and congigures Apache and copies ap
 
 ## Terraform
 Terraform template is located at `terraform/azure`. It creates VM Scale Set based on Packer prepared imagestored in Managed disks
-VSTS uses Azure Storage backend to store state file.  Storrge account and Container should be created before staring the build. (Defaults are in backend.tfvars)
+Azure DevOps uses Azure Storage backend to store state file.  Storrge account and Container should be created before staring the build. (Defaults are in backend.tfvars)
 
 
 ## Prerequisites:
 
-Configure custom VSTS agent with required tools as described in “How to create a custom VSTS agent on Azure ACI with Terraform : https://open.microsoft.com/2018/05/22/how-to-create-vsts-agent-azure-aci-terraform/
+Use ubuntu 16.x as Azure DevOps Built-in Agent or Configure custom Azure DevOps agent with required tools as described in “How to create a custom DevOPs agent on Azure ACI with Terraform : https://open.microsoft.com/2018/05/22/how-to-create-vsts-agent-azure-aci-terraform/ 
 
 Service Principal with access to the Subscription
 
@@ -64,7 +63,7 @@ Terraform must store state about your managed infrastructure and configuration.
 
 This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
 
-Ansible task extension installed from VSTS marketplace
+Ansible task extension installed from Azure DevOps marketplace
 
 Spring Boot Application Build
 
@@ -157,7 +156,7 @@ ReferenceName : manageddiskname
 
 ![Flow](./Dev-Release-Packer-step.png)
 
-Script executes the Packer template and sets the VSTS output variable “manageddiskname” to the disk created by Packer. This image will be used by Terraform to point VM ScaleSets to.
+Script executes the Packer template and sets the DevOps output variable “manageddiskname” to the disk created by Packer. This image will be used by Terraform to point VM ScaleSets to.
 
 Packer template uses Azure builder to create image based on Red Hat and saves it in Managed Disk in the provided resource group (name includes timestamp for ease of identification).
 
