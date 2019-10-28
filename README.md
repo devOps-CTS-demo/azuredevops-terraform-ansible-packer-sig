@@ -1,11 +1,9 @@
-Azure DevOps - Demo CI/CD using Packer,Terraform, Ansible and Shared Image Gallery (SIG)
+Azure DevOps Demo - CI/CD using Packer,Terraform, Ansible and Shared Image Gallery (SIG)
 
 ===================================================================
-## Building Immutable infastructure Demo
+## Building immutable Infastructure using Azure DevOps
 
 At a high level this repository contains code for "Building Immutable infastructure Demo", it demonstrates how to build a Golden VM Image and version control it using Shared Image Gallery in Azure and optionally deploy infra and applucation using Terraform using same image.
-
-Huge shout out to my peer Elena NEROSLAVSKAYA who originally started this project, we have expanded same project to include Shared Image gallery, her orginal documentation and blogpost is here https://cloudblogs.microsoft.com/opensource/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
 
 Following is the flow:
 - Azure DevOps Build gets and packages artifacts from github 
@@ -52,6 +50,9 @@ Ansible playbook`packer/apache.yml` installs and congigures Apache and copies ap
 ## Terraform
 Terraform template is located at `terraform/azure`. It creates VM Scale Set based on Packer prepared imagestored in Managed disks
 Azure DevOps uses Azure Storage backend to store state file.  Storrge account and Container should be created before staring the build. (Defaults are in backend.tfvars)
+
+
+Shout out to my peer Elena NEROSLAVSKAYA who originally started this project, I have atempted to expand on same project to include Shared Image gallery, her orginal documentation and blogpost is here https://cloudblogs.microsoft.com/opensource/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
 
 
 ## Prerequisites:
