@@ -1,13 +1,19 @@
-Continuous Integration and Deployment using VSTS , Packer, Terraform and Ansible
+Continuous Integration and Deployment using Azure DevOps,Packer,Terraform, Ansible and Shared Image Gallery (SIG)
 
 
 ================================================================================
 
 This repository contains code for the "Building Immutable infastructure Demo". Following is the flow:
-- VSTS Build gets and packages artifacts from github 
-- VSTS Release invokes packer to build image from Azure Marketplace Ubuntu image and save into ManagedDisk
-- Packer uses `ansible-local` provisioner to install Apache and application code into the image
-- VSTS Release invokes Terraform to provision Infrastructure (VMSS, LB, NSG) and point VMSS to image stored by packaer in ManagedDisks
+- Azure DevOps Build gets and packages artifacts from github 
+- Azure DevOps Release invokes packer to build image from Azure Marketplace Ubuntu image and save into ManagedDisk
+- Packer uses `ansible-local` provisioner to install Tomcat and a Java application code into the image.
+- Image Build by Packer is Pushed to Shared Image Gallery for Version Control and replicated to 2 region to keep a local copy for Developers to download from closet Azure Region bsed on their Geo.
+- Azure DevOps release invokes Terraform to provision Infrastructure (VMSS, LB, NSG) and point VMSS to image stored by packaer in ManagedDisks
+
+
+End-To-End Flow 
+
+![Flow](./AzureDevOps-IAC)
 
 ![Flow](./Terraform-Ansible-Packer.png)
 
@@ -17,13 +23,15 @@ This repository contains code for the "Building Immutable infastructure Demo". F
 
 Step1) DevOps commit code or configuration change
 
-Step2) VSTS Build builds and packages application
+Step2) Azure DevOps Build builds and packages application
 
-Step3) VSTS Release invokes Packer to build a Linux image and store it in Managed Disks
+Step3) Azure DevOps Release invokes Packer to build a Linux image and store it in Managed Disks
 
 Step4) Packer invokes the Ansible Playbook provisioner to install JDK, Tomcat and SpringBoot application
 
-Step5) VSTS Release invokes Terraform to provision Infrastructure and uses Packer build image
+Step5) AzureDevOps pushes smae image build by Packer to Shared Image Gallery.
+
+Step6) AzureDevOps Release invokes Terraform to provision Infrastructure and uses same image build by Packer.
 
 ## Packer
 Packer template for Azure Image is located at `packer/app.json`. It stores prepared image in managed disks in Resource group provided by environment variable `ARM_RESOURCE_GROUP_DISKS`, this resource group should be created before the build (TODO: add creation to pipeline)
