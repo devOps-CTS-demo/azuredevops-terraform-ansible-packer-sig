@@ -17,7 +17,7 @@ End-To-End Flow
 
 ![Flow](./Terraform-Ansible-Packer.png)
 
-## ![Flow](./CICD-Flow.PNG)
+<!--- ![Flow](./CICD-Flow.PNG) -->
 
 ## High Level Steps
 
