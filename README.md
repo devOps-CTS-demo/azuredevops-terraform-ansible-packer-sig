@@ -5,10 +5,11 @@ Continuous Integration and Deployment using Azure DevOps,Packer,Terraform, Ansib
 
 This repository contains code for the "Building Immutable infastructure Demo". Following is the flow:
 - Azure DevOps Build gets and packages artifacts from github 
-- Azure DevOps Release invokes packer to build image from Azure Marketplace Ubuntu image and save into ManagedDisk
+- Azure DevOps Release invokes packer to build image from Azure Marketplace RHEL 7.3 image and save into ManagedDisk
 - Packer uses `ansible-local` provisioner to install Tomcat and a Java application code into the image.
-- Image Build by Packer is Pushed to Shared Image Gallery for Version Control and replicated to 2 region to keep a local copy for Developers to download from closet Azure Region bsed on their Geo.
-- Azure DevOps release invokes Terraform to provision Infrastructure (VMSS, LB, NSG) and point VMSS to image stored by packaer in ManagedDisks
+- Packer build an Image and it's Pushed to Shared Image Gallery for Version Control and replicated to 2 region to keep a local copy for Developers/Infra Team to download from closet Azure Region bsed on their geo location.
+- Azure DevOps release invokes terraform to provision infrastructure (VMSS, LB, NSG) and point VMSS to image stored by packaer in ManagedDisks
+-Terraform State is stored in a Azure Storage Account.
 
 
 End-To-End Flow 
@@ -138,17 +139,17 @@ Step2) Add Steps to New Release Env - call it Dev
 
 Step3) Add Tasks 
 
-a. Task Packer 
+a. Task Packer-SIG   
 
-Search for Bash Script --> Name it Packer
+Search for Bash Script --> Name it Packer-SIG  Select Task Version 2.* 
 
 ![Flow](./Dev-Release-tasks1.png)
 
-Display Name: Packer
+Display Name: Packer-SIG
 
 Script Path: $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/packer/buildvm.sh
 
-Arguments: $(ARM_CLIENT_ID) $(ARM_CLIENT_SECRET) $(ARM_SUBSCRIPTION_ID) $(ARM_TENANT_ID) $(ARM_RESOURCE_GROUP_DISKS) $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop
+Arguments: $(ARM_CLIENT_ID) $(ARM_CLIENT_SECRET) $(ARM_SUBSCRIPTION_ID) $(ARM_TENANT_ID) $(ARM_RESOURCE_GROUP_DISKS) $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop $(sig_rg) $(siggallery_name) $(sig_def)
 
 Advanced Specify Working Dir : $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/packer
 
@@ -179,6 +180,8 @@ Each image has timestamp as a suffix that helps to identify images for rollback 
 
 b. Task Terraform Init
 
+Search for Bash Script --> Name it Terraform init  Select Task Version 2.* 
+
 Display Name : Terraform init
 
 Script Path: $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/terraform/init.sh
@@ -201,10 +204,9 @@ To initialize Terraform shell script will run init command with provided backend
 
 Upon a successful run it will have following output indication that Terraform has been initialized.
 
-
-
-
 c. Task Terraform Apply
+
+Search for Bash Script --> Name it Terraform Apply  Select Task Version 2.* 
 
 Display Name: Terraform Apply
 
@@ -244,6 +246,12 @@ ARM_SUBSCRIPTION_ID
 ARM_TENANT_ID
 
 SSH_PUB_KEY
+
+sig_def
+
+sig_rg
+
+siggallery_name
 
 ![Flow](./Dev-Release-Variables.png)
 
