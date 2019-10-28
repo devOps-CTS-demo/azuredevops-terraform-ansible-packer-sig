@@ -21,9 +21,9 @@ End-To-End Flow
 
 ## High Level Steps
 
-Step1) Developer(s) commit code or configuration change
+Step1) Developer(s) commit code or configuration change in their Github Repo
 
-Step2) Azure DevOps Build builds and packages application
+Step2) Azure DevOps CI Builds and packages application
 
 Step3) Azure DevOps Release invokes Packer to build a Linux image.
 
