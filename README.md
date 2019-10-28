@@ -284,7 +284,7 @@ Step7) Provisioned infrastructure will look like this:
 
 ![Flow](./Dev-packer-result.png)
 
-As a result of the build, we have a Spring Boot application up and running on an Azure VM scale set and it could be scaled up and down quickly, according to demand.  Example URL : http://rsazdemopackeriac.westus2.cloudapp.azure.com/spring-music/
+As a result of the build, we have a Spring Boot application up and running on an Azure VM scale set and it could be scaled up and down quickly, according to demand.  Example URL : http://rsazdevopspackerdemo.westus2.cloudapp.azure.com/spring-music/
 
 Conclusion
 
