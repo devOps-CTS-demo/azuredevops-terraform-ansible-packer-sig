@@ -1,4 +1,4 @@
-storage_account_name = "rsazvststapsa"
+storage_account_name = "devopstfpcansisa"
 
 container_name = "terraform-state"
 
