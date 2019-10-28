@@ -1,4 +1,4 @@
-Continuous Integration and Deployment using Azure DevOps,Packer,Terraform, Ansible and Shared Image Gallery (SIG)
+Azure DevOps - Demo CI/CD using Packer,Terraform, Ansible and Shared Image Gallery (SIG)
 
 ==============================================================================
 
