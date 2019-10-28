@@ -9,7 +9,7 @@ provider "azurerm" {}
 
 # Create a resource group if it doesn’t exist
 resource "azurerm_resource_group" "demo_resource_group" {
-  name     = "packerdemocreate"
+  name     = "devopspackerdemo"
   location = "westus2"
 
    tags = {
@@ -20,7 +20,7 @@ resource "azurerm_resource_group" "demo_resource_group" {
 
 # Create virtual network
 resource "azurerm_virtual_network" "demo_virtual_network" {
-  name                = "packerdemo"
+  name                = "devopspackerdemo-vnet"
   address_space       = ["10.0.0.0/16"]
   location            = "${azurerm_resource_group.demo_resource_group.location}"
   resource_group_name = "${azurerm_resource_group.demo_resource_group.name}"
@@ -33,7 +33,7 @@ resource "azurerm_virtual_network" "demo_virtual_network" {
 
 # Create subnet
 resource "azurerm_subnet" "demo_subnet" {
-  name                 = "packerdemo"
+  name                 = "devopspackerdemo-subnet"
   resource_group_name  = "${azurerm_resource_group.demo_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.demo_virtual_network.name}"
   address_prefix       = "10.0.1.0/24"
@@ -45,7 +45,7 @@ resource "azurerm_public_ip" "demo_public_ip" {
   location                     = "${azurerm_resource_group.demo_resource_group.location}"
   resource_group_name          = "${azurerm_resource_group.demo_resource_group.name}"
   public_ip_address_allocation = "static"
-  domain_name_label            = "rsazdemopackeriac"
+  domain_name_label            = "rsazdevopspackerdemo"
 
 tags = {
  environment = "Azure DevOps Demo Build"
