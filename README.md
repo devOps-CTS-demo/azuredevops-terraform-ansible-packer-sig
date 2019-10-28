@@ -21,17 +21,19 @@ End-To-End Flow
 
 ## High Level Steps
 
-Step1) DevOps commit code or configuration change
+Step1) Developer(s) commit code or configuration change
 
 Step2) Azure DevOps Build builds and packages application
 
-Step3) Azure DevOps Release invokes Packer to build a Linux image and store it in Managed Disks
+Step3) Azure DevOps Release invokes Packer to build a Linux image.
 
-Step4) Packer invokes the Ansible Playbook provisioner to install JDK, Tomcat and SpringBoot application
+Step4) Packer invokes the Ansible Playbook provisioner to install JDK, Tomcat and SpringBoot application, captures VM as Golden Image and save it as Azure Managed Image.
 
-Step5) AzureDevOps pushes smae image build by Packer to Shared Image Gallery.
+Step5) AzureDevOps pushes same Managed image build by Packer to Shared Image Gallery for version control and replicates to 2 addtional regions.
 
-Step6) AzureDevOps Release invokes Terraform to provision Infrastructure and uses same image build by Packer.
+Step6) AzureDevOps Release invokes Terraform to provision Infrastructure (ALB,VMSS) and uses same managed image build by Packer.
+
+Step7) Browse URL given by Terraform to Validate your Application is deployed using Infrastructure as Code. 
 
 ## Packer
 Packer template for Azure Image is located at `packer/app.json`. It stores prepared image in managed disks in Resource group provided by environment variable `ARM_RESOURCE_GROUP_DISKS`, this resource group should be created before the build (TODO: add creation to pipeline)
