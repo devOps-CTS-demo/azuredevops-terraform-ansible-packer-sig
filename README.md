@@ -1,11 +1,17 @@
 Azure DevOps Demo - CI/CD using Packer,Terraform, Ansible and Shared Image Gallery (SIG)
 
 ==================================================================
-## Building immutable Infastructure using Azure DevOps
+## Building Immutable Infrastructure using Azure DevOps
 
-At a high level this repository contains code for "Building Immutable infastructure Demo", it demonstrates how to build a Golden VM Image and version control it using Shared Image Gallery in Azure and optionally deploy infra and application using Terraform using same image.
+At a high level this repository contains code for "Building Immutable Infrastructure Demo", it demonstrates how to build a Golden VM Image and version control it using Shared Image Gallery in Azure and optionally deploy infra and application using Terraform using same image.
 
-Following is the flow:
+## Use Case(s)
+
+This address 2 use cases.
+ - How do you automate the deployment of example Java Application end-to-end without using GUI.
+ - How do you automate a VM patching on-going basis. 
+
+Following is the high level flow:
 - Azure DevOps Build gets and packages artifacts from github 
 - Azure DevOps Release invokes packer to build image from Azure Marketplace RHEL 7.3 image and save into ManagedDisk
 - Packer uses `ansible-local` provisioner to install Tomcat and a Java application code into the image.
