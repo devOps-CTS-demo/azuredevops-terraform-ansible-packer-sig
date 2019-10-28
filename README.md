@@ -80,6 +80,15 @@ Here is outline of the steps and commands customizations:
 
 Refer to full blog post https://open.microsoft.com/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
 
+
+## Link Azure DevOps Project to Github 
+
+1. Create a New Project in Azure Devops
+2. Go to Project Settings
+3. Got to Github Connections and follow the steps to Auth your Github Account 
+
+![Flow](./DevOps-Github-Link.png)
+
 ## Build Provisioning
 
 1. Create a build definition (Build & Release tab > Builds).
@@ -99,6 +108,7 @@ Contents:
 ansible/**
 terraform/**
 packer/**
+sig/**
 
 Target Folder: $(build.artifactstagingdirectory)
 
@@ -132,9 +142,9 @@ Here is the Release pipeline definition, which can be imported from GitHub.
 
 Step1) Create a New Release 
 
-Step2) Add Steps to New Release Env - call it Dev
+Step2) Add Steps to New Release Env - call it Development
 
-![Flow](./Dev-Release1.jpg)
+![Flow](./Dev-Release.jpg)
 
 Step3) Add Tasks 
 
@@ -142,7 +152,7 @@ a. Task Packer-SIG
 
 Search for Bash Script --> Name it Packer-SIG  Select Task Version 2.* 
 
-![Flow](./Dev-Release-tasks1.png)
+![Flow](./Dev-Release-tasks.png)
 
 Display Name: Packer-SIG
 
@@ -189,7 +199,7 @@ Arguments:  $(ARM_CLIENT_ID) $(ARM_CLIENT_SECRET) $(ARM_SUBSCRIPTION_ID) $(ARM_T
 
 Advance : Specify Working Directory : $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/terraform/azure
 
-![Flow](./Dev-Release-Packer-step.png)
+![Flow](./Dev-Release-Terraform-init-step.png)
 
 Terraform must initialize Azure Resource provider and the configured backend for keeping the state (Azure storage in this example) before the use. Here is the snippet doing it from our Terraform template:
 
@@ -215,7 +225,7 @@ Arguments: $(ARM_CLIENT_ID) $(ARM_CLIENT_SECRET) $(ARM_SUBSCRIPTION_ID) $(ARM_TE
 
 Specify Working Dir : $(System.DefaultWorkingDirectory)/BuildPacker-CI/drop/terraform/azure
 
-![Flow](./Dev-Release-Terraformapply-step.png)
+![Flow](./Dev-Release-Terraform-apply-step.png)
 
 Terraform generates an execution plan describing what it will do to reach the desired state, and then executes it to build the described infrastructure. As the configuration changes, Terraform is able to determine what changed and create incremental execution plans that can be applied.
 
@@ -269,7 +279,7 @@ Step7) Provisioned infrastructure will look like this:
 
 ![Flow](./Dev-packer-result.png)
 
-As a result of the build, we have a Spring Boot application up and running on an Azure VM scale set and it could be scaled up and down quickly, according to demand.  Example URL : http://demopackeriac.westus2.cloudapp.azure.com/spring-music/
+As a result of the build, we have a Spring Boot application up and running on an Azure VM scale set and it could be scaled up and down quickly, according to demand.  Example URL : http://rsazdemopackeriac.westus2.cloudapp.azure.com/spring-music/
 
 Conclusion
 
