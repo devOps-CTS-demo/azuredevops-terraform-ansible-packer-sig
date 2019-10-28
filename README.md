@@ -52,10 +52,9 @@ Terraform template is located at `terraform/azure`. It creates VM Scale Set base
 Azure DevOps uses Azure Storage backend to store state file.  Storrge account and Container should be created before staring the build. (Defaults are in backend.tfvars)
 
 
-Shout out to my peer Elena NEROSLAVSKAYA who originally started this project, I have atempted to expand on same project to include Shared Image gallery, her orginal documentation and blogpost is here https://cloudblogs.microsoft.com/opensource/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
-
-
 ## Prerequisites:
+
+## Shout out to my peer Elena NEROSLAVSKAYA , she originally started this project, I have atempted to expand on same project to include Shared Image gallery, her orginal documentation and blogpost is here https://cloudblogs.microsoft.com/opensource/2018/05/23/immutable-infrastructure-azure-vsts-terraform-packer-ansible/
 
 Use ubuntu 16.x as Azure DevOps Built-in Agent or Configure custom Azure DevOps agent with required tools as described in “How to create a custom DevOPs agent on Azure ACI with Terraform : https://open.microsoft.com/2018/05/22/how-to-create-vsts-agent-azure-aci-terraform/ 
 
