@@ -7,7 +7,7 @@ variable "project" {
 }
 
 variable "manageddiskname-rg" {
-  default = "vsts-terraform-ansible-packer-rg"
+  default = "devops-git-tf-pc-sig-ansi-rg"
 }
 
 variable "baked_image_url" {
